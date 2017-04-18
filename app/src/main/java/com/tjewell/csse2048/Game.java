@@ -10,9 +10,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class Game {
-
-    private static final long MOVE_ANIMATION_TIME = GridView.BASE_ANIMATION_TIME;
-    private static final long SPAWN_ANIMATION_TIME = GridView.BASE_ANIMATION_TIME;
     private static final int startingMaxValue = 2048;
     //Odd state = game is not active
     //Even state = game is active

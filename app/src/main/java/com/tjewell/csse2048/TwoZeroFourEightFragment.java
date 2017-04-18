@@ -25,19 +25,9 @@ public class TwoZeroFourEightFragment extends Fragment {
     private static final String UNDO_GAME_STATE = "undo game state";
     private GridView view;
 
-//    public static TwoZeroFourEightFragment newInstance(GridView gridView) {
-//        Bundle bundle = new Bundle();
-//        bundle.putSerializable("gridView", gridView);
-//        TwoZeroFourEightFragment frag = new TwoZeroFourEightFragment();
-//        frag.setArguments(bundle);
-//        return frag;
-//    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-//        view = (GridView) getArguments().getSerializable("gridView");
-
         view = new GridView(getActivity());
 
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity());
@@ -53,8 +43,7 @@ public class TwoZeroFourEightFragment extends Fragment {
     }
 
     public GridView getGridView() {
-        GridView debug = view;
-        return debug;
+        return view;
     }
 
     @Override

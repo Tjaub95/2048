@@ -1,2 +1,12 @@
 
-Isquid:S1185"(Remove this method to simply inherit it.(¿£ú½ùÿÿÿÿ8‡ÿ‚¢·+
+osquid:S1450"SRemove the "down" field and declare it as a local variable in the relevant methods.(³Ïëç8²Í•ó·+
+Hsquid:S1068",Remove this unused "gridView" private field.(ı‚¤Ê8éÄ—ô·+
+osquid:S1450"SRemove the "left" field and declare it as a local variable in the relevant methods.(¨½êß8ş÷’ó·+
+psquid:S1450"TRemove the "right" field and declare it as a local variable in the relevant methods.(ŸèÚ8ãÔ”ó·+
+osquid:S1450"SRemove the "frag" field and declare it as a local variable in the relevant methods.(îÏ†ì8„Ÿô·+
+Isquid:S1185"(Remove this method to simply inherit it.(¿£ú½ùÿÿÿÿ8­´İó·+
+msquid:S1450"QRemove the "up" field and declare it as a local variable in the relevant methods.(³±8ãÔ”ó·+
+nsquid:S1192"MDefine a constant instead of duplicating this literal "HIGH SCORE: " 6 times.(Æı×Şıÿÿÿÿ8şÖœô·+
+U"squid:SwitchLastCaseIsDefaultCheck""Add a default case to this switch.(ºÖ8­´İó·+
+wsquid:S1450"VRemove the "restart" field and declare it as a local variable in the relevant methods.(ÑİÉúúÿÿÿÿ8Ä†¾ò·+
+dsquid:S1192"HDefine a constant instead of duplicating this literal "SCORE: " 6 times.(ú•Ó³8şÖœô·+

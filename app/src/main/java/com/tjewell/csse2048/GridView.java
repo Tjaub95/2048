@@ -16,10 +16,7 @@ import java.io.Serializable;
 public class GridView extends View implements Serializable {
 
     //Internal Constants
-    static final int BASE_ANIMATION_TIME = 100000000;
     private static final String TAG = GridView.class.getSimpleName();
-    private static final float MERGING_ACCELERATION = (float) -0.5;
-    private static final float INITIAL_VELOCITY = (1 - MERGING_ACCELERATION) / 4;
     public final int numCellTypes = 21;
     public final Game game;
     private final BitmapDrawable[] bitmapCell = new BitmapDrawable[numCellTypes];
@@ -76,7 +73,6 @@ public class GridView extends View implements Serializable {
         game = new Game(context, this);
         try {
             //Getting assets
-            backgroundRectangle = resources.getDrawable(R.drawable.background_rectangle);
             lightUpRectangle = resources.getDrawable(R.drawable.light_up_rectangle);
             fadeRectangle = resources.getDrawable(R.drawable.fade_rectangle);
             paint.setAntiAlias(true);
@@ -91,21 +87,11 @@ public class GridView extends View implements Serializable {
         return 31 - Integer.numberOfLeadingZeros(n);
     }
 
-    public Game getGame() {
-        return game;
-    }
-
     @Override
     public void onDraw(Canvas canvas) {
         //Reset the transparency of the screen
 
         canvas.drawBitmap(background, 0, 0, paint);
-
-//        drawScoreText(canvas);
-
-        if (!game.isActive()) {
-//            drawNewGameButton(canvas, true);
-        }
 
         drawCells(canvas);
 
@@ -145,106 +131,6 @@ public class GridView extends View implements Serializable {
             paint.setColor(getResources().getColor(R.color.text_black));
         }
         canvas.drawText("" + value, cellSize / 2, cellSize / 2 - textShiftY, paint);
-    }
-
-    public long getHighScore() {
-        return game.highScore;
-    }
-
-    public long getScore() {
-        return game.score;
-    }
-
-    private void drawScoreText(Canvas canvas) {
-        //Drawing the score text: Ver 2
-        paint.setTextSize(bodyTextSize);
-        paint.setTextAlign(Paint.Align.CENTER);
-
-        int bodyWidthHighScore = (int) (paint.measureText("" + game.highScore));
-        int bodyWidthScore = (int) (paint.measureText("" + game.score));
-
-        int textWidthHighScore = Math.max(titleWidthHighScore, bodyWidthHighScore) + textPaddingSize * 2;
-        int textWidthScore = Math.max(titleWidthScore, bodyWidthScore) + textPaddingSize * 2;
-
-        int textMiddleHighScore = textWidthHighScore / 2;
-        int textMiddleScore = textWidthScore / 2;
-
-        int eXHighScore = endingX;
-        int sXHighScore = eXHighScore - textWidthHighScore;
-
-        int eXScore = sXHighScore - textPaddingSize;
-        int sXScore = eXScore - textWidthScore;
-
-        //Outputting high-scores box
-        backgroundRectangle.setBounds(sXHighScore, sYAll, eXHighScore, eYAll);
-        backgroundRectangle.draw(canvas);
-        paint.setTextSize(titleTextSize);
-        paint.setColor(getResources().getColor(R.color.text_brown));
-        canvas.drawText(getResources().getString(R.string.high_score), sXHighScore + textMiddleHighScore, titleStartYAll, paint);
-        paint.setTextSize(bodyTextSize);
-        paint.setColor(getResources().getColor(R.color.text_white));
-        canvas.drawText(String.valueOf(game.highScore), sXHighScore + textMiddleHighScore, bodyStartYAll, paint);
-
-
-        //Outputting scores box
-        backgroundRectangle.setBounds(sXScore, sYAll, eXScore, eYAll);
-        backgroundRectangle.draw(canvas);
-        paint.setTextSize(titleTextSize);
-        paint.setColor(getResources().getColor(R.color.text_brown));
-        canvas.drawText(getResources().getString(R.string.score), sXScore + textMiddleScore, titleStartYAll, paint);
-        paint.setTextSize(bodyTextSize);
-        paint.setColor(getResources().getColor(R.color.text_white));
-        canvas.drawText(String.valueOf(game.score), sXScore + textMiddleScore, bodyStartYAll, paint);
-    }
-
-    private void drawNewGameButton(Canvas canvas, boolean lightUp) {
-
-        if (lightUp) {
-            drawDrawable(canvas,
-                    lightUpRectangle,
-                    sXNewGame,
-                    sYIcons,
-                    sXNewGame + iconSize,
-                    sYIcons + iconSize
-            );
-        } else {
-            drawDrawable(canvas,
-                    backgroundRectangle,
-                    sXNewGame,
-                    sYIcons, sXNewGame + iconSize,
-                    sYIcons + iconSize
-            );
-        }
-
-        drawDrawable(canvas,
-                getResources().getDrawable(R.drawable.ic_action_refresh),
-                sXNewGame + iconPaddingSize,
-                sYIcons + iconPaddingSize,
-                sXNewGame + iconSize - iconPaddingSize,
-                sYIcons + iconSize - iconPaddingSize
-        );
-    }
-
-    private void drawUndoButton(Canvas canvas) {
-
-        drawDrawable(canvas,
-                backgroundRectangle,
-                sXUndo,
-                sYIcons, sXUndo + iconSize,
-                sYIcons + iconSize
-        );
-
-        drawDrawable(canvas,
-                getResources().getDrawable(R.drawable.ic_action_undo),
-                sXUndo + iconPaddingSize,
-                sYIcons + iconPaddingSize,
-                sXUndo + iconSize - iconPaddingSize,
-                sYIcons + iconSize - iconPaddingSize
-        );
-    }
-
-    private void drawBackground(Canvas canvas) {
-        drawDrawable(canvas, backgroundRectangle, startingX, startingY, endingX, endingY);
     }
 
     //Renders the set of 16 background squares.
@@ -413,11 +299,6 @@ public class GridView extends View implements Serializable {
         loseGameOverlay = new BitmapDrawable(resources, bitmap);
     }
 
-    private void tick() {
-        long currentTime = System.nanoTime();
-        lastFPSTime = currentTime;
-    }
-
     public void resyncTime() {
         lastFPSTime = System.nanoTime();
     }
@@ -461,7 +342,6 @@ public class GridView extends View implements Serializable {
         textPaddingSize = (int) (textSize / 3);
         iconPaddingSize = (int) (textSize / 5);
 
-        int textShiftYAll = centerText();
         //static variables
         sYAll = (int) (startingY - cellSize * 1.5);
         resyncTime();

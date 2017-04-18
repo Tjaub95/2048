@@ -31,7 +31,6 @@ public class TwoZeroFourEightActivity extends Activity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_two_zero_four_eight);
 
-//        gridView = new GridView(getApplicationContext());
         restart = (Button) findViewById(R.id.restart);
         restart.setOnClickListener(this);
         left = (ImageView) findViewById(R.id.imageLeft);

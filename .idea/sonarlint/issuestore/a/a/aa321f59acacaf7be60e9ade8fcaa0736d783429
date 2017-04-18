@@ -1,19 +1,19 @@
 
-Hsquid:UselessParenthesesCheck"!Remove those useless parentheses.(Ä¬ …
-S"squid:SwitchLastCaseIsDefaultCheck""Add a default case to this switch.(ãÁğ™øÿÿÿÿ
-bsquid:S2184"ACast one of the operands of this addition operation to a "float".(÷ˆñãÿÿÿÿÿ8¿ÆÏ·+
-Rsquid:S1244"=Equality tests should not be made with floating point values.(¤•¢
-„squid:S1151"jReduce this switch case number of lines from 28 to at most 5, for example by extracting code into methods.(¨é×öıÿÿÿÿ
-lsquid:S3776"RRefactor this method to reduce its Cognitive Complexity from 62 to the 15 allowed.(’½°ÿüÿÿÿÿ
+„squid:S1151"jReduce this switch case number of lines from 12 to at most 5, for example by extracting code into methods.(âó´ÿÿÿÿÿ
 g
 squid:S134"NRefactor this code to not nest more than 3 if/for/while/switch/try statements.(×¥‡Çûÿÿÿÿ
-Rsquid:S1244"=Equality tests should not be made with floating point values.(×ØÊÔ
-„squid:S1151"jReduce this switch case number of lines from 12 to at most 5, for example by extracting code into methods.(âó´ÿÿÿÿÿ
-„squid:S1151"jReduce this switch case number of lines from 59 to at most 5, for example by extracting code into methods.(£ê„€ıÿÿÿÿ
-g
-squid:S134"NRefactor this code to not nest more than 3 if/for/while/switch/try statements.(š¿î¹ùÿÿÿÿ
-b
-squid:S134"NRefactor this code to not nest more than 3 if/for/while/switch/try statements.(ø´‘…
 b
 squid:S134"NRefactor this code to not nest more than 3 if/for/while/switch/try statements.(Œ­¯Á
+bsquid:S2184"ACast one of the operands of this addition operation to a "float".(÷ˆñãÿÿÿÿÿ8¿ÆÏ·+
+„squid:S1151"jReduce this switch case number of lines from 59 to at most 5, for example by extracting code into methods.(£ê„€ıÿÿÿÿ
+Rsquid:S1244"=Equality tests should not be made with floating point values.(×ØÊÔ
+g
+squid:S134"NRefactor this code to not nest more than 3 if/for/while/switch/try statements.(š¿î¹ùÿÿÿÿ
+S"squid:SwitchLastCaseIsDefaultCheck""Add a default case to this switch.(ãÁğ™øÿÿÿÿ
+Hsquid:UselessParenthesesCheck"!Remove those useless parentheses.(Ä¬ …
+Rsquid:S1244"=Equality tests should not be made with floating point values.(¤•¢
 bsquid:S2184"ACast one of the operands of this addition operation to a "float".(Â¼çÉıÿÿÿÿ8¿ÆÏ·+
+b
+squid:S134"NRefactor this code to not nest more than 3 if/for/while/switch/try statements.(ø´‘…
+lsquid:S3776"RRefactor this method to reduce its Cognitive Complexity from 62 to the 15 allowed.(’½°ÿüÿÿÿÿ
+„squid:S1151"jReduce this switch case number of lines from 28 to at most 5, for example by extracting code into methods.(¨é×öıÿÿÿÿ
