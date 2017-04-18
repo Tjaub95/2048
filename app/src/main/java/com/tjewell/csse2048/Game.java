@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -73,7 +74,7 @@ public class Game {
 
     private void addRandomTile() {
         if (grid.isCellsAvailable()) {
-            int value = Math.random() < 0.9 ? 2 : 4;
+            int value = Math.random() < 0.75 ? 2 : 4;
             TileModel tile = new TileModel(grid.randomAvailableCell(), value);
             spawnTile(tile);
         }
@@ -87,7 +88,7 @@ public class Game {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mContext);
         SharedPreferences.Editor editor = settings.edit();
         editor.putLong(HIGH_SCORE, highScore);
-        editor.commit();
+        editor.apply();
     }
 
     private long getHighScore() {

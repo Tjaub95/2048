@@ -1,0 +1,28 @@
+
+"squid:ClassVariableVisibilityCheck"UMake highScore a static final constant or non-public and provide accessors if needed.(Û÷ÇÏ
+|"squid:ClassVariableVisibilityCheck"PMake grid a static final constant or non-public and provide accessors if needed.(â¤Íô
+„"squid:ClassVariableVisibilityCheck"SMake canUndo a static final constant or non-public and provide accessors if needed.(é¼ûñüÿÿÿÿ
+†"squid:ClassVariableVisibilityCheck"UMake lastScore a static final constant or non-public and provide accessors if needed.(¢Œ×ùşÿÿÿÿ
+}"squid:ClassVariableVisibilityCheck"QMake score a static final constant or non-public and provide accessors if needed.(ÖŒÑÈ
+Tsquid:UselessParenthesesCheck"!Remove those useless parentheses.(äú©¡ÿÿÿÿÿ8åÇíÀ·+
+Osquid:UselessParenthesesCheck"!Remove those useless parentheses.(Ïê‰¦8åÇíÀ·+
+gsquid:S2184"FCast one of the operands of this substraction operation to a "double".(è×ûÄûÿÿÿÿ8åÇíÀ·+
+Ssquid:S1068"7Remove this unused "MOVE_ANIMATION_TIME" private field.(Íòõ8åÇíÀ·+
+Ysquid:S1068"8Remove this unused "SPAWN_ANIMATION_TIME" private field.(Ñ”‰âÿÿÿÿÿ8åÇíÀ·+
+i
+squid:S134"NRefactor this code to not nest more than 3 if/for/while/switch/try statements.(±åÕƒ8åÇíÀ·+
+n
+squid:S134"NRefactor this code to not nest more than 3 if/for/while/switch/try statements.(á¡—ıÿÿÿÿ8åÇíÀ·+
+n
+squid:S134"NRefactor this code to not nest more than 3 if/for/while/switch/try statements.(¤ìÂöùÿÿÿÿ8åÇíÀ·+
+"squid:ClassVariableVisibilityCheck"UMake gameState a static final constant or non-public and provide accessors if needed.(‘¾Ñíùÿÿÿÿ8åÇíÀ·+
+‘"squid:ClassVariableVisibilityCheck"YMake lastGameState a static final constant or non-public and provide accessors if needed.(œ¤…ıÿÿÿÿ8åÇíÀ·+
+Lsquid:S1481"+Remove this unused "extras" local variable.(«›â’üÿÿÿÿ8åÇíÀ·+
+Lsquid:S1481"+Remove this unused "extras" local variable.(™ıÈ¥ıÿÿÿÿ8åÇíÀ·+
+nsquid:S3776"RRefactor this method to reduce its Cognitive Complexity from 24 to the 15 allowed.(²“8åÇíÀ·+
+ssquid:S3776"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(¯ïòŸøÿÿÿÿ8åÇíÀ·+
+Bsquid:S1170"!Make this final field static too.(İî„¸şÿÿÿÿ8åÇíÀ·+
+<squid:S1170"!Make this final field static too.(ğ‰ø\8åÇíÀ·+
+[squid:S1854":Remove this useless assignment to local variable "extras".(«›â’üÿÿÿÿ8åÇíÀ·+
+[squid:S1854":Remove this useless assignment to local variable "extras".(™ıÈ¥ıÿÿÿÿ8åÇíÀ·+
+|squid:S00115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(³¶‹ñúÿÿÿÿ8åÇíÀ·+
