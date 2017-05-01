@@ -2,7 +2,6 @@ package com.tjewell.csse2048;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -21,15 +20,16 @@ public class TwoZeroFourEightActivity extends Activity implements View.OnClickLi
     private GridView gridView;
     private Button restart;
     private Button demoMode;
-    private Button soundOption;
     private Button aboutUs;
     private ImageView left;
     private ImageView up;
     private ImageView down;
     private ImageView right;
+    private ImageView soundOption;
     private TextView score;
     private TextView highScore;
     private TwoZeroFourEightFragment frag;
+    private boolean sound;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,8 +40,6 @@ public class TwoZeroFourEightActivity extends Activity implements View.OnClickLi
         restart.setOnClickListener(this);
         demoMode = (Button) findViewById(R.id.demo);
         demoMode.setOnClickListener(this);
-        soundOption = (Button) findViewById(R.id.sound);
-        soundOption.setOnClickListener(this);
         aboutUs = (Button) findViewById(R.id.about);
         aboutUs.setOnClickListener(this);
         left = (ImageView) findViewById(R.id.imageLeft);
@@ -52,6 +50,8 @@ public class TwoZeroFourEightActivity extends Activity implements View.OnClickLi
         up.setOnClickListener(this);
         down = (ImageView) findViewById(R.id.imageDown);
         down.setOnClickListener(this);
+        soundOption = (ImageView) findViewById(R.id.sound);
+        soundOption.setOnClickListener(this);
 
         highScore = (TextView) findViewById(R.id.high_score);
         score = (TextView) findViewById(R.id.score);
@@ -64,12 +64,38 @@ public class TwoZeroFourEightActivity extends Activity implements View.OnClickLi
                 .commit();
 
         load();
+
+        if (sound) {
+            soundOption.setImageDrawable(getDrawable(R.drawable.ic_volume_up_black_24dp));
+        } else {
+            soundOption.setImageDrawable(getDrawable(R.drawable.ic_volume_off_black_24dp));
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        save();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        load();
+    }
+
+    private void save() {
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean("soundSetting", sound);
+        editor.apply();
     }
 
     private void load() {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         score.setText("SCORE: " + settings.getLong("score", 0));
         highScore.setText("HIGH SCORE: " + settings.getLong("high score temp", 0));
+        sound = settings.getBoolean("soundSetting", true);
     }
 
     @Override
@@ -83,28 +109,21 @@ public class TwoZeroFourEightActivity extends Activity implements View.OnClickLi
                 builder.setMessage(getString(R.string.dialog_message));
 
                 String positiveText = getString(android.R.string.ok);
-                builder.setPositiveButton(positiveText,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                // positive button logic
-                            }
-                        });
-
+                builder.setPositiveButton(positiveText, null);
                 String negativeText = getString(android.R.string.cancel);
-                builder.setNegativeButton(negativeText,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                // negative button logic
-                            }
-                        });
+                builder.setNegativeButton(negativeText, null);
 
                 AlertDialog dialog = builder.create();
                 // display dialog
                 dialog.show();
                 break;
             case R.id.sound:
+                sound = !sound;
+                if (sound) {
+                    soundOption.setImageDrawable(getDrawable(R.drawable.ic_volume_up_black_24dp));
+                } else {
+                    soundOption.setImageDrawable(getDrawable(R.drawable.ic_volume_off_black_24dp));
+                }
                 break;
             case R.id.demo:
                 break;
