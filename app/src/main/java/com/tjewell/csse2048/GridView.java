@@ -11,12 +11,16 @@ import android.util.Log;
 import android.view.View;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 @SuppressWarnings("deprecation")
 public class GridView extends View implements Serializable {
 
     //Internal Constants
+    static final int BASE_ANIMATION_TIME = 100000000;
     private static final String TAG = GridView.class.getSimpleName();
+    private static final float MERGING_ACCELERATION = (float) -0.5;
+    private static final float INITIAL_VELOCITY = (1 - MERGING_ACCELERATION) / 4;
     public final int numCellTypes = 21;
     public final Game game;
     private final BitmapDrawable[] bitmapCell = new BitmapDrawable[numCellTypes];
@@ -79,6 +83,7 @@ public class GridView extends View implements Serializable {
         } catch (Exception e) {
             Log.e(TAG, "Error getting assets?", e);
         }
+        setOnTouchListener(new InputListener(this));
         game.newGame();
     }
 
@@ -95,7 +100,7 @@ public class GridView extends View implements Serializable {
 
         drawCells(canvas);
 
-        if (!game.isActive()) {
+        if (!game.isActive() && !game.aGrid.isAnimationActive()) {
             drawEndGameState(canvas);
         }
 
@@ -103,7 +108,12 @@ public class GridView extends View implements Serializable {
             drawEndlessText(canvas);
         }
 
-        if (!game.isActive() && refreshLastTime) {
+        //Refresh the screen if there is still an animation running
+        if (game.aGrid.isAnimationActive()) {
+            invalidate(startingX, startingY, endingX, endingY);
+            tick();
+            //Refresh one last time on game end.
+        } else if (!game.isActive() && refreshLastTime) {
             invalidate();
             refreshLastTime = false;
         }
@@ -168,7 +178,53 @@ public class GridView extends View implements Serializable {
                     int index = log2(value);
 
                     //Check for any active animations
+                    ArrayList<AnimationCell> aArray = game.aGrid.getAnimationCell(xx, yy);
                     boolean animated = false;
+                    for (int i = aArray.size() - 1; i >= 0; i--) {
+                        AnimationCell aCell = aArray.get(i);
+                        //If this animation is not active, skip it
+                        if (aCell.getAnimationType() == Game.SPAWN_ANIMATION) {
+                            animated = true;
+                        }
+                        if (!aCell.isActive()) {
+                            continue;
+                        }
+
+                        if (aCell.getAnimationType() == Game.SPAWN_ANIMATION) { // Spawning animation
+                            double percentDone = aCell.getPercentageDone();
+                            float textScaleSize = (float) (percentDone);
+                            paint.setTextSize(textSize * textScaleSize);
+
+                            float cellScaleSize = cellSize / 2 * (1 - textScaleSize);
+                            bitmapCell[index].setBounds((int) (sX + cellScaleSize), (int) (sY + cellScaleSize), (int) (eX - cellScaleSize), (int) (eY - cellScaleSize));
+                            bitmapCell[index].draw(canvas);
+                        } else if (aCell.getAnimationType() == Game.MERGE_ANIMATION) { // Merging Animation
+                            double percentDone = aCell.getPercentageDone();
+                            float textScaleSize = (float) (1 + INITIAL_VELOCITY * percentDone
+                                    + MERGING_ACCELERATION * percentDone * percentDone / 2);
+                            paint.setTextSize(textSize * textScaleSize);
+
+                            float cellScaleSize = cellSize / 2 * (1 - textScaleSize);
+                            bitmapCell[index].setBounds((int) (sX + cellScaleSize), (int) (sY + cellScaleSize), (int) (eX - cellScaleSize), (int) (eY - cellScaleSize));
+                            bitmapCell[index].draw(canvas);
+                        } else if (aCell.getAnimationType() == Game.MOVE_ANIMATION) {  // Moving animation
+                            double percentDone = aCell.getPercentageDone();
+                            int tempIndex = index;
+                            if (aArray.size() >= 2) {
+                                tempIndex = tempIndex - 1;
+                            }
+                            int previousX = aCell.extras[0];
+                            int previousY = aCell.extras[1];
+                            int currentX = currentTile.getX();
+                            int currentY = currentTile.getY();
+                            int dX = (int) ((currentX - previousX) * (cellSize + gridWidth) * (percentDone - 1) * 1.0);
+                            int dY = (int) ((currentY - previousY) * (cellSize + gridWidth) * (percentDone - 1) * 1.0);
+                            bitmapCell[tempIndex].setBounds(sX + dX, sY + dY, eX + dX, eY + dY);
+                            bitmapCell[tempIndex].draw(canvas);
+                        }
+                        animated = true;
+                    }
+
                     //No active animations? Just draw the cell
                     if (!animated) {
                         bitmapCell[index].setBounds(sX, sY, eX, eY);
@@ -182,6 +238,11 @@ public class GridView extends View implements Serializable {
     private void drawEndGameState(Canvas canvas) {
         double alphaChange = 1;
         continueButtonEnabled = false;
+        for (AnimationCell animation : game.aGrid.globalAnimation) {
+            if (animation.getAnimationType() == Game.FADE_GLOBAL_ANIMATION) {
+                alphaChange = animation.getPercentageDone();
+            }
+        }
         BitmapDrawable displayOverlay = null;
         if (game.gameWon()) {
             if (game.canContinue()) {
@@ -297,6 +358,12 @@ public class GridView extends View implements Serializable {
         canvas = new Canvas(bitmap);
         createEndGameStates(canvas, false, false);
         loseGameOverlay = new BitmapDrawable(resources, bitmap);
+    }
+
+    private void tick() {
+        long currentTime = System.nanoTime();
+        game.aGrid.tickAll(currentTime - lastFPSTime);
+        lastFPSTime = currentTime;
     }
 
     public void resyncTime() {
