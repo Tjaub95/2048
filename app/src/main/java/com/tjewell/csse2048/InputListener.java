@@ -121,15 +121,15 @@ class InputListener implements View.OnTouchListener {
                     if (iconPressed(mView.sXNewGame, mView.sYIcons)) {
                         if (!mView.game.gameLost()) {
                             new AlertDialog.Builder(mView.getContext())
-                                    .setPositiveButton(R.string.reset, new DialogInterface.OnClickListener() {
+                                    .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             mView.game.newGame();
                                         }
                                     })
-                                    .setNegativeButton(R.string.continue_game, null)
-                                    .setTitle(R.string.reset_dialog_title)
-                                    .setMessage(R.string.reset_dialog_message)
+                                    .setNegativeButton(R.string.cancel, null)
+                                    .setTitle(R.string.dialog_title)
+                                    .setMessage(R.string.dialog_message)
                                     .show();
                         } else {
                             mView.game.newGame();

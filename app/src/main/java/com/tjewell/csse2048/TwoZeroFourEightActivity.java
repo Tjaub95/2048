@@ -1,6 +1,8 @@
 package com.tjewell.csse2048;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -18,6 +20,9 @@ import android.widget.TextView;
 public class TwoZeroFourEightActivity extends Activity implements View.OnClickListener {
     private GridView gridView;
     private Button restart;
+    private Button demoMode;
+    private Button soundOption;
+    private Button aboutUs;
     private ImageView left;
     private ImageView up;
     private ImageView down;
@@ -33,6 +38,12 @@ public class TwoZeroFourEightActivity extends Activity implements View.OnClickLi
 
         restart = (Button) findViewById(R.id.restart);
         restart.setOnClickListener(this);
+        demoMode = (Button) findViewById(R.id.demo);
+        demoMode.setOnClickListener(this);
+        soundOption = (Button) findViewById(R.id.sound);
+        soundOption.setOnClickListener(this);
+        aboutUs = (Button) findViewById(R.id.about);
+        aboutUs.setOnClickListener(this);
         left = (ImageView) findViewById(R.id.imageLeft);
         left.setOnClickListener(this);
         right = (ImageView) findViewById(R.id.imageRight);
@@ -66,6 +77,37 @@ public class TwoZeroFourEightActivity extends Activity implements View.OnClickLi
         frag = (TwoZeroFourEightFragment) getFragmentManager().findFragmentById(R.id.grid_twofourzeroeight);
         // 0: up, 1: right, 2: down, 3: left
         switch (view.getId()) {
+            case R.id.about:
+                AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.MyDialogTheme);
+                builder.setTitle(getString(R.string.dialog_title));
+                builder.setMessage(getString(R.string.dialog_message));
+
+                String positiveText = getString(android.R.string.ok);
+                builder.setPositiveButton(positiveText,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // positive button logic
+                            }
+                        });
+
+                String negativeText = getString(android.R.string.cancel);
+                builder.setNegativeButton(negativeText,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // negative button logic
+                            }
+                        });
+
+                AlertDialog dialog = builder.create();
+                // display dialog
+                dialog.show();
+                break;
+            case R.id.sound:
+                break;
+            case R.id.demo:
+                break;
             case R.id.restart:
                 frag.getGridView().game.newGame();
                 score.setText("SCORE: " + frag.getGridView().game.score);
