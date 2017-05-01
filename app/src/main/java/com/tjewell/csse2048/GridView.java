@@ -54,7 +54,6 @@ public class GridView extends View implements Serializable {
     private int textPaddingSize;
     private int iconPaddingSize;
     //Assets
-    private Drawable backgroundRectangle;
     private Drawable lightUpRectangle;
     private Drawable fadeRectangle;
     private Bitmap background = null;
@@ -63,11 +62,6 @@ public class GridView extends View implements Serializable {
     private BitmapDrawable winGameFinalOverlay;
     //Text variables
     private int sYAll;
-    private int titleStartYAll;
-    private int bodyStartYAll;
-    private int eYAll;
-    private int titleWidthHighScore;
-    private int titleWidthScore;
 
     public GridView(Context context) {
         super(context);
