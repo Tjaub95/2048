@@ -120,8 +120,10 @@ public class TwoZeroFourEightActivity extends Activity implements View.OnClickLi
             case R.id.sound:
                 sound = !sound;
                 if (sound) {
+                    frag.getGridView().game.setSound(sound);
                     soundOption.setImageDrawable(getDrawable(R.drawable.ic_volume_up_black_24dp));
                 } else {
+                    frag.getGridView().game.setSound(sound);
                     soundOption.setImageDrawable(getDrawable(R.drawable.ic_volume_off_black_24dp));
                 }
                 break;

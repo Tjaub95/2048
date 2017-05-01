@@ -63,12 +63,12 @@ public class GridView extends View implements Serializable {
     //Text variables
     private int sYAll;
 
-    public GridView(Context context) {
+    public GridView(Context context, boolean hasSound) {
         super(context);
 
         Resources resources = context.getResources();
         //Loading resources
-        game = new Game(context, this);
+        game = new Game(context, this, hasSound);
         try {
             //Getting assets
             lightUpRectangle = resources.getDrawable(R.drawable.light_up_rectangle);

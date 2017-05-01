@@ -2,6 +2,7 @@ package com.tjewell.csse2048;
 
 import android.app.Fragment;
 import android.content.SharedPreferences;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
@@ -28,9 +29,8 @@ public class TwoZeroFourEightFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        view = new GridView(getActivity());
-
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        view = new GridView(getActivity(), settings.getBoolean("soundSetting", true));
         view.hasSaveState = settings.getBoolean("save_state", false);
 
         if (savedInstanceState != null) {
@@ -38,6 +38,9 @@ public class TwoZeroFourEightFragment extends Fragment {
                 load();
             }
         }
+
+        // allow volume buttons to set game volume
+        getActivity().setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
         return view;
     }
@@ -56,6 +59,12 @@ public class TwoZeroFourEightFragment extends Fragment {
     public void onPause() {
         super.onPause();
         save();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        view.game.releaseResources();
     }
 
     private void save() {
