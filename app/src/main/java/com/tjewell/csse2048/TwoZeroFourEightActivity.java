@@ -30,6 +30,7 @@ public class TwoZeroFourEightActivity extends Activity implements View.OnClickLi
     private TextView highScore;
     private TwoZeroFourEightFragment frag;
     private boolean sound;
+    private boolean demo;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,6 +71,13 @@ public class TwoZeroFourEightActivity extends Activity implements View.OnClickLi
         } else {
             soundOption.setImageDrawable(getDrawable(R.drawable.ic_volume_off_black_24dp));
         }
+
+        if (demo) {
+            demoMode.setText(R.string.demoOn);
+        } else {
+            demoMode.setText(R.string.demoOff);
+        }
+
     }
 
     @Override
@@ -88,6 +96,7 @@ public class TwoZeroFourEightActivity extends Activity implements View.OnClickLi
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor editor = settings.edit();
         editor.putBoolean("soundSetting", sound);
+        editor.putBoolean("demoMode", demo);
         editor.apply();
     }
 
@@ -96,6 +105,7 @@ public class TwoZeroFourEightActivity extends Activity implements View.OnClickLi
         score.setText("SCORE: " + settings.getLong("score", 0));
         highScore.setText("HIGH SCORE: " + settings.getLong("high score temp", 0));
         sound = settings.getBoolean("soundSetting", true);
+        demo = settings.getBoolean("demoMode", false);
     }
 
     @Override
@@ -128,6 +138,14 @@ public class TwoZeroFourEightActivity extends Activity implements View.OnClickLi
                 }
                 break;
             case R.id.demo:
+                demo = !demo;
+                if (demo) {
+                    frag.getGridView().game.demoMode();
+                    demoMode.setText(R.string.demoOn);
+                } else {
+                    frag.getGridView().game.cancelDemo();
+                    demoMode.setText(R.string.demoOff);
+                }
                 break;
             case R.id.restart:
                 frag.getGridView().game.newGame();

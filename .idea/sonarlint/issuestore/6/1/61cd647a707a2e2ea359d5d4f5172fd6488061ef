@@ -1,12 +1,16 @@
 
-osquid:S1450"SRemove the "down" field and declare it as a local variable in the relevant methods.(³Ïëç8²Í•ó·+
-Isquid:S1185"(Remove this method to simply inherit it.(¿£ú½ùÿÿÿÿ8­´İó·+
-U"squid:SwitchLastCaseIsDefaultCheck""Add a default case to this switch.(ºÖ8­´İó·+
-osquid:S1450"SRemove the "frag" field and declare it as a local variable in the relevant methods.(îÏ†ì8„Ÿô·+
-dsquid:S1192"HDefine a constant instead of duplicating this literal "SCORE: " 6 times.(ú•Ó³8şÖœô·+
-nsquid:S1192"MDefine a constant instead of duplicating this literal "HIGH SCORE: " 6 times.(Æı×Şıÿÿÿÿ8şÖœô·+
-Hsquid:S1068",Remove this unused "gridView" private field.(ı‚¤Ê8éÄ—ô·+
-wsquid:S1450"VRemove the "restart" field and declare it as a local variable in the relevant methods.(ÑİÉúúÿÿÿÿ8Ä†¾ò·+
 psquid:S1450"TRemove the "right" field and declare it as a local variable in the relevant methods.(ŸèÚ8ãÔ”ó·+
-osquid:S1450"SRemove the "left" field and declare it as a local variable in the relevant methods.(¨½êß8ş÷’ó·+
+Hsquid:S1068",Remove this unused "gridView" private field.(ı‚¤Ê8éÄ—ô·+
+dsquid:S1192"HDefine a constant instead of duplicating this literal "SCORE: " 6 times.(ú•Ó³8şÖœô·+
+…squid:S1151"iReduce this switch case number of lines from 9 to at most 5, for example by extracting code into methods.(¡Ë«É8ÄƒÜ¼+
 msquid:S1450"QRemove the "up" field and declare it as a local variable in the relevant methods.(³±8ãÔ”ó·+
+osquid:S1450"SRemove the "down" field and declare it as a local variable in the relevant methods.(³Ïëç8²Í•ó·+
+xsquid:S1450"WRemove the "demoMode" field and declare it as a local variable in the relevant methods.(Ä‚ç–ÿÿÿÿÿ8ÍéÇŒ¼+
+osquid:S1450"SRemove the "frag" field and declare it as a local variable in the relevant methods.(îÏ†ì8„Ÿô·+
+‹squid:S1151"jReduce this switch case number of lines from 10 to at most 5, for example by extracting code into methods.(ªµ¿„øÿÿÿÿ8ÄƒÜ¼+
+nsquid:S1192"MDefine a constant instead of duplicating this literal "HIGH SCORE: " 6 times.(Æı×Şıÿÿÿÿ8ÄƒÜ¼+
+U"squid:SwitchLastCaseIsDefaultCheck""Add a default case to this switch.(ºÖ8ÄƒÜ¼+
+wsquid:S1450"VRemove the "restart" field and declare it as a local variable in the relevant methods.(ÑİÉúúÿÿÿÿ8Ä†¾ò·+
+osquid:S1450"SRemove the "left" field and declare it as a local variable in the relevant methods.(¨½êß8ş÷’ó·+
+rsquid:S1450"VRemove the "aboutUs" field and declare it as a local variable in the relevant methods.(ë¸ñ8ÍéÇŒ¼+
+Isquid:S1185"(Remove this method to simply inherit it.(¿£ú½ùÿÿÿÿ8÷Òê¼+
