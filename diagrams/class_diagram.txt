@@ -1,0 +1,78 @@
+@startuml
+
+class AnimationCell {
+	int animationType
+	long animationTime
+	long delayTime
+	long timeElapsed
+
+	int getAnimationType()
+	void tick()
+	boolean animationDone()
+	getPercentageDone()
+	isActive()
+}
+
+class Cell {
+	int x
+	int y
+	int getX()
+	void setX()
+	int getY()
+	void setY()
+}
+
+class TileModel {
+	TileModel[] mergedFrom
+	int tileValue
+}
+
+class Grid {
+	TileModel[][] field
+	TileModel[][] undoField
+	TileModel[][] bufferField
+}
+
+class AnimationGrid {
+
+}
+
+class GridView {
+
+}
+
+class View {
+
+}
+
+class Game {
+
+}
+
+class TwoZeroFourEightActivity {
+}
+
+class Activity {
+}
+
+class TwoZeroFourEightFragment {
+}
+
+class Fragment {
+}
+
+AnimationCell --|> Cell : extends
+TileModel --|> Cell : extends
+AnimationGrid *-- AnimationCell : animates
+Grid "1..1" *-- "1..*" TileModel : contains
+GridView "1..1" *-- "1..1" Grid : displays
+GridView --|> View : extends
+Game "1..1" -- "1..1" GridView : controls
+Game "1..1" *-- "1..1" AnimationGrid : controls
+Game "1..1" *-- "1..1" Grid : controls
+TwoZeroFourEightActivity --|> Activity : extends
+TwoZeroFourEightFragment --|> Fragment : extends
+TwoZeroFourEightActivity "1..1" *-- "1..1" TwoZeroFourEightFragment : contains
+TwoZeroFourEightFragment "1..1" *-- "1..1" GridView : contains
+
+@enduml
