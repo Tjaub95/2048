@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -17,7 +16,6 @@ import android.widget.TextView;
  */
 
 public class TwoZeroFourEightActivity extends Activity implements View.OnClickListener {
-    private GridView gridView;
     private Button restart;
     private Button demoMode;
     private Button aboutUs;
@@ -178,10 +176,5 @@ public class TwoZeroFourEightActivity extends Activity implements View.OnClickLi
                 frag.getGridView().game.move(1);
                 break;
         }
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        return super.onKeyDown(keyCode, event);
     }
 }
