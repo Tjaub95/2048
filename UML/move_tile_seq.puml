@@ -1,0 +1,19 @@
+@startuml
+
+actor User
+boundary MoveButton
+boundary SwipeMotion
+control Game
+
+User -> MoveButton : clicks
+User -> SwipeMotion : swipes
+MoveButton -> Game : move(direction)
+Game -> AnimationGrid : animate()
+Game -> ScoreText : update()
+Game -> HighscoreText : if curScore > highscore then update()
+Game -> GridView : invalidate()
+GridView -> GridView : draw()
+
+SwipeMotion -> Game : move(direction)
+
+@enduml

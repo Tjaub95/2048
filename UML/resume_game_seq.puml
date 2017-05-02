@@ -1,0 +1,15 @@
+@startuml
+
+actor User
+boundary 2048App
+
+User -> 2048App : click
+2048App -> TwoZeroFourEightActivity : onResume()
+TwoZeroFourEightActivity -> TwoZeroFourEightActivity : load()
+2048App -> TwoZeroFourEightFragment : onResume()
+TwoZeroFourEightFragment -> TwoZeroFourEightFragment : load()
+TwoZeroFourEightFragment -> Game : updateData(data)
+Game -> GridView : invalidate()
+Game -> Game : if demo == true then resumeDemo()
+
+@enduml

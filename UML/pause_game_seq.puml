@@ -1,0 +1,19 @@
+@startuml
+
+actor User
+boundary BackButton
+boundary HomeButton
+
+User -> BackButton : clicks
+User -> HomeButton : clicks
+HomeButton -> TwoZeroFourEightFragment : save()
+TwoZeroFourEightFragment -> SharedPreferences : update()
+HomeButton -> TwoZeroFourEightActivity : save()
+TwoZeroFourEightActivity -> SharedPreferences : update()
+
+BackButton -> TwoZeroFourEightFragment : save()
+TwoZeroFourEightFragment -> SharedPreferences : update()
+BackButton -> TwoZeroFourEightActivity : save()
+TwoZeroFourEightActivity -> SharedPreferences : update()
+
+@enduml

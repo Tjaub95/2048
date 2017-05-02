@@ -1,0 +1,11 @@
+@startuml
+
+actor User
+boundary RestartButton
+
+User -> RestartButton : clicks
+RestartButton -> Game : newGame()
+Game -> Score : reset()
+Game -> HighScore : reset()
+
+@enduml
