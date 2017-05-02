@@ -109,6 +109,16 @@ public class TwoZeroFourEightActivity extends Activity implements View.OnClickLi
     }
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (demo) {
+            demoMode.setText(R.string.demoOff);
+            demo = !demo;
+        }
+        finish();
+    }
+
+    @Override
     public void onClick(View view) {
         frag = (TwoZeroFourEightFragment) getFragmentManager().findFragmentById(R.id.grid_twofourzeroeight);
         // 0: up, 1: right, 2: down, 3: left
@@ -148,29 +158,24 @@ public class TwoZeroFourEightActivity extends Activity implements View.OnClickLi
                 }
                 break;
             case R.id.restart:
+                demo = false;
+                frag.getGridView().game.cancelDemo();
+                demoMode.setText(R.string.demoOff);
                 frag.getGridView().game.newGame();
                 score.setText("SCORE: " + frag.getGridView().game.score);
                 highScore.setText("HIGH SCORE: " + frag.getGridView().game.highScore);
                 break;
             case R.id.imageDown:
                 frag.getGridView().game.move(2);
-                score.setText("SCORE: " + frag.getGridView().game.score);
-                highScore.setText("HIGH SCORE: " + frag.getGridView().game.highScore);
                 break;
             case R.id.imageUp:
                 frag.getGridView().game.move(0);
-                score.setText("SCORE: " + frag.getGridView().game.score);
-                highScore.setText("HIGH SCORE: " + frag.getGridView().game.highScore);
                 break;
             case R.id.imageLeft:
                 frag.getGridView().game.move(3);
-                score.setText("SCORE: " + frag.getGridView().game.score);
-                highScore.setText("HIGH SCORE: " + frag.getGridView().game.highScore);
                 break;
             case R.id.imageRight:
                 frag.getGridView().game.move(1);
-                score.setText("SCORE: " + frag.getGridView().game.score);
-                highScore.setText("HIGH SCORE: " + frag.getGridView().game.highScore);
                 break;
         }
     }

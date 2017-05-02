@@ -9,6 +9,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -63,12 +64,12 @@ public class GridView extends View implements Serializable {
     //Text variables
     private int sYAll;
 
-    public GridView(Context context, boolean hasSound) {
+    public GridView(Context context, boolean hasSound, TextView score, TextView highScore) {
         super(context);
 
         Resources resources = context.getResources();
         //Loading resources
-        game = new Game(context, this, hasSound);
+        game = new Game(context, this, hasSound, score, highScore);
         try {
             //Getting assets
             lightUpRectangle = resources.getDrawable(R.drawable.light_up_rectangle);

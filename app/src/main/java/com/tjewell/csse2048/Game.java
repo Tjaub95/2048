@@ -55,12 +55,16 @@ public class Game {
     private int bufferGameState = GAME_NORMAL;
     private long bufferScore = 0;
     private boolean hasSound;
+    private TextView scoreView;
+    private TextView highScoreView;
 
-    public Game(Context context, GridView view, boolean hasSound) {
+    public Game(Context context, GridView view, boolean hasSound, TextView score, TextView highScore) {
         mContext = context;
         mView = view;
         endingMaxValue = (int) Math.pow(2, view.numCellTypes - 1);
         this.hasSound = hasSound;
+        this.scoreView = score;
+        this.highScoreView = highScore;
         // configure audio attributes for game audio
         AudioAttributes.Builder attrBuilder = new AudioAttributes.Builder();
         attrBuilder.setUsage(AudioAttributes.USAGE_GAME);
@@ -248,6 +252,8 @@ public class Game {
                         // Update the score
                         score = score + merged.getTileValue();
                         highScore = Math.max(score, highScore);
+                        scoreView.setText("SCORE: " + score);
+                        highScoreView.setText("HIGH SCORE: " + highScore);
 
                         // The mighty 2048 tile
                         if (merged.getTileValue() >= winValue() && !gameWon()) {
