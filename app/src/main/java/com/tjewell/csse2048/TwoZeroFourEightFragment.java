@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 /**
  * Created by Tyler_Jewell on 4/13/17.
@@ -30,7 +31,8 @@ public class TwoZeroFourEightFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        view = new GridView(getActivity(), settings.getBoolean("soundSetting", true));
+        TwoZeroFourEightActivity eight = (TwoZeroFourEightActivity) getActivity();
+        view = new GridView(getActivity(), settings.getBoolean("soundSetting", true), (TextView) eight.findViewById(R.id.score), (TextView) eight.findViewById(R.id.high_score));
         view.hasSaveState = settings.getBoolean("save_state", false);
 
         if (savedInstanceState != null) {

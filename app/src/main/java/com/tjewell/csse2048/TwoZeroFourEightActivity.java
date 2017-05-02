@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -17,7 +16,6 @@ import android.widget.TextView;
  */
 
 public class TwoZeroFourEightActivity extends Activity implements View.OnClickListener {
-    private GridView gridView;
     private Button restart;
     private Button demoMode;
     private Button aboutUs;
@@ -30,6 +28,7 @@ public class TwoZeroFourEightActivity extends Activity implements View.OnClickLi
     private TextView highScore;
     private TwoZeroFourEightFragment frag;
     private boolean sound;
+    private boolean demo;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,6 +69,13 @@ public class TwoZeroFourEightActivity extends Activity implements View.OnClickLi
         } else {
             soundOption.setImageDrawable(getDrawable(R.drawable.ic_volume_off_black_24dp));
         }
+
+        if (demo) {
+            demoMode.setText(R.string.demoOn);
+        } else {
+            demoMode.setText(R.string.demoOff);
+        }
+
     }
 
     @Override
@@ -88,6 +94,7 @@ public class TwoZeroFourEightActivity extends Activity implements View.OnClickLi
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor editor = settings.edit();
         editor.putBoolean("soundSetting", sound);
+        editor.putBoolean("demoMode", demo);
         editor.apply();
     }
 
@@ -96,6 +103,17 @@ public class TwoZeroFourEightActivity extends Activity implements View.OnClickLi
         score.setText("SCORE: " + settings.getLong("score", 0));
         highScore.setText("HIGH SCORE: " + settings.getLong("high score temp", 0));
         sound = settings.getBoolean("soundSetting", true);
+        demo = settings.getBoolean("demoMode", false);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (demo) {
+            demoMode.setText(R.string.demoOff);
+            demo = !demo;
+        }
+        finish();
     }
 
     @Override
@@ -128,37 +146,35 @@ public class TwoZeroFourEightActivity extends Activity implements View.OnClickLi
                 }
                 break;
             case R.id.demo:
+                demo = !demo;
+                if (demo) {
+                    frag.getGridView().game.demoMode();
+                    demoMode.setText(R.string.demoOn);
+                } else {
+                    frag.getGridView().game.cancelDemo();
+                    demoMode.setText(R.string.demoOff);
+                }
                 break;
             case R.id.restart:
+                demo = false;
+                frag.getGridView().game.cancelDemo();
+                demoMode.setText(R.string.demoOff);
                 frag.getGridView().game.newGame();
                 score.setText("SCORE: " + frag.getGridView().game.score);
                 highScore.setText("HIGH SCORE: " + frag.getGridView().game.highScore);
                 break;
             case R.id.imageDown:
                 frag.getGridView().game.move(2);
-                score.setText("SCORE: " + frag.getGridView().game.score);
-                highScore.setText("HIGH SCORE: " + frag.getGridView().game.highScore);
                 break;
             case R.id.imageUp:
                 frag.getGridView().game.move(0);
-                score.setText("SCORE: " + frag.getGridView().game.score);
-                highScore.setText("HIGH SCORE: " + frag.getGridView().game.highScore);
                 break;
             case R.id.imageLeft:
                 frag.getGridView().game.move(3);
-                score.setText("SCORE: " + frag.getGridView().game.score);
-                highScore.setText("HIGH SCORE: " + frag.getGridView().game.highScore);
                 break;
             case R.id.imageRight:
                 frag.getGridView().game.move(1);
-                score.setText("SCORE: " + frag.getGridView().game.score);
-                highScore.setText("HIGH SCORE: " + frag.getGridView().game.highScore);
                 break;
         }
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        return super.onKeyDown(keyCode, event);
     }
 }

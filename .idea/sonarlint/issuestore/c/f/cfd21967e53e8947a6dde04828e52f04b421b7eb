@@ -1,0 +1,5 @@
+
+èsquid:S1319"zThe type of the "globalAnimation" object should be an interface such as "List" rather than the implementation "ArrayList".(˙˙§ä
+b
+squid:S134"NRefactor this code to not nest more than 3 if/for/while/switch/try statements.(Ä—ñÉ
+Ösquid:S1319"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(ù•Ã∏

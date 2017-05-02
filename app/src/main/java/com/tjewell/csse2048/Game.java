@@ -4,12 +4,15 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.AudioAttributes;
 import android.media.SoundPool;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.SparseIntArray;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class Game {
     public static final int SPAWN_ANIMATION = -1;
@@ -45,17 +48,23 @@ public class Game {
     public long score = 0;
     public long highScore = 0;
     public long lastScore = 0;
+    private Handler handler;
+    private Demo demo;
     private SoundPool soundPool; // plays sound effects
     private SparseIntArray soundMap; // maps IDs to SoundPool
     private int bufferGameState = GAME_NORMAL;
     private long bufferScore = 0;
     private boolean hasSound;
+    private TextView scoreView;
+    private TextView highScoreView;
 
-    public Game(Context context, GridView view, boolean hasSound) {
+    public Game(Context context, GridView view, boolean hasSound, TextView score, TextView highScore) {
         mContext = context;
         mView = view;
         endingMaxValue = (int) Math.pow(2, view.numCellTypes - 1);
         this.hasSound = hasSound;
+        this.scoreView = score;
+        this.highScoreView = highScore;
         // configure audio attributes for game audio
         AudioAttributes.Builder attrBuilder = new AudioAttributes.Builder();
         attrBuilder.setUsage(AudioAttributes.USAGE_GAME);
@@ -65,6 +74,9 @@ public class Game {
         builder.setMaxStreams(1);
         builder.setAudioAttributes(attrBuilder.build());
         soundPool = builder.build();
+
+        handler = new Handler();
+        demo = new Demo(handler);
 
         // create Map of sounds and pre-load sounds
         soundMap = new SparseIntArray(1); // create new SparseIntArray
@@ -240,6 +252,8 @@ public class Game {
                         // Update the score
                         score = score + merged.getTileValue();
                         highScore = Math.max(score, highScore);
+                        scoreView.setText("SCORE: " + score);
+                        highScoreView.setText("HIGH SCORE: " + highScore);
 
                         // The mighty 2048 tile
                         if (merged.getTileValue() >= winValue() && !gameWon()) {
@@ -335,6 +349,15 @@ public class Game {
         return grid.isCellsAvailable() || tileMatchesAvailable();
     }
 
+    public void demoMode() {
+        demo.setRun(true);
+        handler.postDelayed(demo, 500);
+    }
+
+    public void cancelDemo() {
+        demo.setRun(false);
+    }
+
     private boolean tileMatchesAvailable() {
         TileModel tile;
 
@@ -380,5 +403,32 @@ public class Game {
 
     public boolean canContinue() {
         return !(gameState == GAME_ENDLESS || gameState == GAME_ENDLESS_WON);
+    }
+
+    private class Demo implements Runnable {
+        private Handler handler;
+        private boolean run;
+
+        public Demo(Handler handler) {
+            this.handler = handler;
+            this.run = true;
+        }
+
+        public void setRun(boolean run) {
+            this.run = run;
+        }
+
+        @Override
+        public void run() {
+            if (run) {
+                Random rand = new Random();
+                move(rand.nextInt(3));
+                if (movesAvailable()) {
+                    handler.postDelayed(this, 500);
+                }
+            } else {
+                handler.removeCallbacks(this);
+            }
+        }
     }
 }

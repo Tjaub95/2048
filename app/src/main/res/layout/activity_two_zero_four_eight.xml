@@ -144,7 +144,7 @@
             android:background="@drawable/cell_rectangle"
             android:ellipsize="none"
             android:padding="20dp"
-            android:text="@string/demo" />
+            android:text="@string/demoOff" />
 
     </LinearLayout>
 
